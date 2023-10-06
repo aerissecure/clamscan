@@ -1,9 +1,10 @@
 package main
 
 import (
-	"clamscan"
 	"fmt"
 	"os"
+
+	"github.com/aerissecure/clamscan"
 )
 
 func main() {
