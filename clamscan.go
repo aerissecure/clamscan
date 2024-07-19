@@ -115,17 +115,15 @@ func (e Engine) ScanContext(ctx context.Context, file io.Reader) (infected bool,
 		return false, "", nil
 	}
 
-	if err != nil {
-		if exitErr, ok := err.(*exec.ExitError); ok {
-			// Exit codes:
-			// 0 : No virus found.
-			// 1 : Virus(es) found.
-			// 2 : Some error(s) occured.
-			ec = exitErr.ExitCode()
-		} else {
-			// Unknown error occured
-			return false, "", fmt.Errorf("unknown error: %w", err)
-		}
+	if exitErr, ok := err.(*exec.ExitError); ok {
+		// Exit codes:
+		// 0 : No virus found.
+		// 1 : Virus(es) found.
+		// 2 : Some error(s) occured.
+		ec = exitErr.ExitCode()
+	} else {
+		// Unknown error occured
+		return false, "", fmt.Errorf("unknown error: %w", err)
 	}
 
 	if ec == 1 {
